@@ -37,8 +37,8 @@ func (loop *eventLoop) Register(handler EventHandler) {
 			newVersion, newOk := resourceVersion(newEvent)
 
 			if oldOk && newOk && oldVersion == newVersion {
-				// Periodic resync will send update events for all known Deployments.
-				// Two different versions of the same Deployment will always have different RVs.
+				// Periodic resync will send update events for all known Object.
+				// Two different versions of the same Object will always have different RVs.
 				return
 			}
 			loop.workqueue.EnqueueUpdate(handler.GetName(), newEvent)
