@@ -11,7 +11,6 @@ require (
 	github.com/go-openapi/spec v0.0.0-20180801175345-384415f06ee2 // indirect
 	github.com/go-openapi/swag v0.0.0-20180715190254-becd2f08beaf // indirect
 	github.com/gogo/protobuf v1.1.1 // indirect
-	github.com/gojektech/kubehandler v0.0.0-20180719172609-81b6d513f4c1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/golang/protobuf v1.1.0 // indirect
 	github.com/google/btree v0.0.0-20180813153112-4030bb1f1f0c // indirect

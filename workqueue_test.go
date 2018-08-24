@@ -1,16 +1,15 @@
-package kubehandler_test
+package kubehandler
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gojektech/kubehandler"
 	"github.com/stretchr/testify/assert"
 	appsv1 "k8s.io/api/extensions/v1beta1"
 )
 
 func TestShouldEnqueueIntoTheUnderlyingWorkQueue(t *testing.T) {
-	workQueue := kubehandler.NewWorkQueue("WorkqueueTest")
+	workQueue := NewWorkQueue("WorkqueueTest")
 	workQueue.EnqueueAdd("someKind", &appsv1.Deployment{})
 	timeCompleted := make(chan string, 1)
 	go func() {
@@ -26,7 +25,7 @@ func TestShouldEnqueueIntoTheUnderlyingWorkQueue(t *testing.T) {
 }
 
 func TestShouldCallRegisteredAddFuncWhenAddEventIsReceived(t *testing.T) {
-	workQueue := kubehandler.NewWorkQueue("WorkqueueTest2")
+	workQueue := NewWorkQueue("WorkqueueTest2")
 	kind := "Foo"
 	addHandlerCalled := make(chan bool, 1)
 	stopChan := make(chan struct{}, 1)
@@ -41,7 +40,7 @@ func TestShouldCallRegisteredAddFuncWhenAddEventIsReceived(t *testing.T) {
 }
 
 func TestShouldCallRegisteredUpdateFuncWhenUpdateEventIsReceived(t *testing.T) {
-	workQueue := kubehandler.NewWorkQueue("WorkqueueTest3")
+	workQueue := NewWorkQueue("WorkqueueTest3")
 	kind := "Foo"
 	updateHandlerCalled := make(chan bool, 1)
 	stopChan := make(chan struct{}, 1)
@@ -56,7 +55,7 @@ func TestShouldCallRegisteredUpdateFuncWhenUpdateEventIsReceived(t *testing.T) {
 }
 
 func TestShouldCallRegisteredDeleteFuncWhenDeleteEventIsReceived(t *testing.T) {
-	workQueue := kubehandler.NewWorkQueue("WorkqueueTest4")
+	workQueue := NewWorkQueue("WorkqueueTest4")
 	kind := "Foo"
 	deleteHandlerCalled := make(chan bool, 1)
 	stopChan := make(chan struct{}, 1)
