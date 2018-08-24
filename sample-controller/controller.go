@@ -4,7 +4,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/gojektech/kubehandler"
+	"github.com/bakito/kubehandler"
+	"github.com/bakito/kubehandler/pkg/signals"
 	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -34,6 +35,7 @@ func (l *LoggerHandler) DeleteFunc(namespace string, name string) error {
 }
 
 func main() {
+
 	// Ignoring some errors for brevity
 	cfg, _ := clientcmd.BuildConfigFromFlags("", "")
 	kubeClient, _ := kubernetes.NewForConfig(cfg)
@@ -55,9 +57,8 @@ func main() {
 	// Register all your handlers
 	loop.Register(loggingHandler)
 
-	// We're not handling signals for clean teardown. For production code, you
-	// probably want to do that
-	stopCh := make(chan struct{})
+	// set up signals so we handle the first shutdown signal gracefully
+	stopCh := signals.SetupSignalHandler()
 
 	// Start the k8s informer so you get events
 	go kubeInformerFactory.Start(stopCh)
